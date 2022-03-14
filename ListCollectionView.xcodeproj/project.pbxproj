@@ -15,6 +15,7 @@
 		E249137127CE2115000D1DB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E249136F27CE2115000D1DB5 /* Main.storyboard */; };
 		E249137327CE2117000D1DB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E249137227CE2117000D1DB5 /* Assets.xcassets */; };
 		E249137627CE2117000D1DB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E249137427CE2117000D1DB5 /* LaunchScreen.storyboard */; };
+		E2CC40EB27DF488C00536E2B /* CompassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CC40EA27DF488C00536E2B /* CompassVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		E249137227CE2117000D1DB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E249137527CE2117000D1DB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E249137727CE2117000D1DB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2CC40EA27DF488C00536E2B /* CompassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				E249137427CE2117000D1DB5 /* LaunchScreen.storyboard */,
 				E249137727CE2117000D1DB5 /* Info.plist */,
 				E222249827D8686F0077A3AA /* Model.swift */,
+				E2CC40EA27DF488C00536E2B /* CompassVC.swift */,
 			);
 			path = ListCollectionView;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E222249927D8686F0077A3AA /* Model.swift in Sources */,
+				E2CC40EB27DF488C00536E2B /* CompassVC.swift in Sources */,
 				E21A594C27D5EC1D001A93FE /* DummyModel.swift in Sources */,
 				E249136E27CE2115000D1DB5 /* ViewController.swift in Sources */,
 				E249136A27CE2115000D1DB5 /* AppDelegate.swift in Sources */,

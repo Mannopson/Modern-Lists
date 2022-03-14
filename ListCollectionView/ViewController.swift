@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var dummies: [DummyModel] = []
+    var dummies: [Model] = []
     
     enum Section: Int, Hashable, CaseIterable, CustomStringConvertible  {
     case options, upnext
@@ -22,16 +22,15 @@ class ViewController: UIViewController {
     }
     
     var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, DummyModel>!
+    var dataSource: UICollectionViewDiffableDataSource<Section, Model>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        dummies.append(DummyModel.init(text: "Yeah", title: "C'mon"))
-        dummies.append(DummyModel.init(text: "Yeah", title: "C'mon"))
-        dummies.append(DummyModel.init(text: "Yeah", title: "C'mon"))
-        dummies.append(DummyModel.init(text: "Yeah", title: "C'mon"))
+        dummies.append(Model.init(item: "Notifications"))
+        dummies.append(Model.init(item: "Next"))
+        dummies.append(Model.init(item: "Compass"))
         
         listViewSetup()
         configureDataSource()
@@ -71,29 +70,30 @@ extension ViewController {
     }
     
     // 3.0 Cell Registration
-    func createListCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, DummyModel> {
-        return UICollectionView.CellRegistration<UICollectionViewListCell, DummyModel> { [weak self] (cell, indexPath, item) in
+    func createListCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, Model> {
+        return UICollectionView.CellRegistration<UICollectionViewListCell, Model> { [weak self] (cell, indexPath, item) in
             guard let self = self else { return }
 //            var content = UIListContentConfiguration.valueCell()
             var content = cell.defaultContentConfiguration()
-//            content.text = self.dummies[indexPath.row].text
-//            content.secondaryText = self.dummies[indexPath.row].title
+            content.text = self.dummies[indexPath.row].item
+            
             
             if indexPath.row == 0 {
                 let switcher = UISwitch.init()
                 switcher.addTarget(self, action: #selector(self.action), for: .valueChanged)
                 cell.accessories = [.customView(configuration: UICellAccessory.CustomViewConfiguration.init(customView: switcher, placement: .trailing(displayed: .always)))]
-                cell.isSelected = false
+            } else {
+                cell.accessories = [.disclosureIndicator()]
             }
             
-            switch indexPath.row {
-            case 0: content.secondaryText = "Fuck 1"
-            case 1: content.secondaryText = "Fuck 2"
-            case 2: content.secondaryText = "Fuck 3"
-            case 3: content.secondaryText = "Fuck 4"
-            case 4: content.secondaryText = "Fuck 5"
-            default: content.secondaryText = "Fuck 1"
-            }
+//            switch indexPath.row {
+//            case 0: content.secondaryText = "Fuck 1"
+//            case 1: content.secondaryText = "Fuck 2"
+//            case 2: content.secondaryText = "Fuck 3"
+//            case 3: content.secondaryText = "Fuck 4"
+//            case 4: content.secondaryText = "Fuck 5"
+//            default: content.secondaryText = "Fuck 1"
+//            }
             
             cell.contentConfiguration = content
         }
@@ -110,7 +110,7 @@ extension ViewController {
         let listCellRegistration = createListCellRegistration()
         
         // data source
-        dataSource = UICollectionViewDiffableDataSource<Section, DummyModel>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, Model>(collectionView: collectionView) {
             (collectionView, indexPath, item) -> UICollectionViewCell? in
             guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
             switch section {
@@ -128,8 +128,10 @@ extension ViewController {
         // set the order for our sections
 
         let sections = Section.allCases
-        var snapshot = NSDiffableDataSourceSnapshot<Section, DummyModel>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Model>()
         snapshot.appendSections(sections)
+        
+        
         snapshot.appendItems(dummies, toSection: .options)
         dataSource.apply(snapshot, animatingDifferences: false)
         
@@ -148,6 +150,10 @@ extension ViewController {
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
+            collectionView.deselectItem(at: indexPath, animated: false)
+        } else if indexPath.row == 2 {
+            let CompassVC = CompassVC.init()
+            navigationController?.pushViewController(CompassVC, animated: true)
             collectionView.deselectItem(at: indexPath, animated: false)
         }
     }
